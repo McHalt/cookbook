@@ -37,6 +37,18 @@ abstract class Base extends \Models\Base
 			return;
 		}
 		foreach ($result[0] as $key => $value) {
+			$key = lcfirst(
+					implode(
+						'', 
+						array_map(
+							'ucfirst', 
+							explode(
+								"_", 
+								$key
+							)
+						)
+					)
+			);
 			$this->$key = $value;
 		}
 	}

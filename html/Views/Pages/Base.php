@@ -32,7 +32,7 @@ abstract class Base extends \Views\Base
 		}
 		try {
 			echo
-				$this->twig->render('head.twig', ['title' => $this->title]) .
+				$this->twig->render('head.twig', ['title' => $this->title, 'menuItems' => $data->getArrayEquivalent()['menuItems']]) .
 				$this->twig->render($this->templateName . '.twig', $data->getArrayEquivalent()) .
 				$this->twig->render('footer.twig');
 		} catch (LoaderError | SyntaxError | RuntimeError $e) {

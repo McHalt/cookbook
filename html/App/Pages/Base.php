@@ -5,6 +5,7 @@ namespace App\Pages;
 
 
 use Models\Data;
+use Models\Lists\MenuItemsList;
 
 abstract class Base extends \App\Base
 {
@@ -14,6 +15,7 @@ abstract class Base extends \App\Base
 	public function __construct()
 	{
 		$this->data = new Data();
+		$this->prepareCommonData();
 		$this->prepareData();
 		if (!static::$preventView) {
 			$this->render($this->data);
@@ -21,4 +23,8 @@ abstract class Base extends \App\Base
 	}
 	
 	public abstract function prepareData();
+	
+	final public function prepareCommonData() {
+		$this->data->menuItems = (new MenuItemsList(["parentId" => 0]))->objects;
+	}
 }

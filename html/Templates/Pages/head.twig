@@ -10,5 +10,39 @@
 </head>
 <body>
 <header class="row">
-    <a href="/" class="col-sm-12">Cookbook</a>
+    <a href="/" class="col-sm-2 title">Cookbook</a>
+    <nav class="col-sm-10">
+      <ul>
+          {% for item in menuItems %}
+              <li
+              {% if item.children|length > 0 %}
+                  class="dropdown-main"
+              {% endif %}
+              >
+                  <a href="{{ item.url }}">{{ item.name }}</a>
+                      {% if item.children|length > 0 %}
+                          <ul class="dropdown-items">
+                              {% for subitem in item.children %}
+                                  {% set item = subitem %}
+                                  <li
+                                  {% if item.children|length > 0 %}
+                                      class="dropdown-main"
+                                  {% endif %}
+                                  ><a href="{{ item.url }}">{{ item.name }}</a>
+                                  {% if item.children|length > 0 %}
+                                      <ul class="dropdown-items">
+                                      {% for subitem in item.children %}
+                                          {% set item = subitem %}
+                                          <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                                      {% endfor %}
+                                      </ul>
+                                  {% endif %}
+                                  </li>
+                              {% endfor %}
+                          </ul>
+                      {% endif %}
+              </li>
+          {% endfor %}
+      </ul>  
+    </nav>
 </header>

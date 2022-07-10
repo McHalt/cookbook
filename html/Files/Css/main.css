@@ -1,3 +1,76 @@
+@font-face {
+  font-family: RubikMoonrocks;
+  src: url(../Fonts/RubikMoonrocks-Regular.ttf)
+}
+@font-face {
+  font-family: Play;
+  src: url(../Fonts/Play-Regular.ttf)
+}
 body {
   overflow-x: hidden;
+}
+a,a:hover,a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+header.row {
+  background-color: red;
+  height: 50px;
+  line-height: 50px;
+}
+header .title {
+  text-align: center;
+  font-family: RubikMoonrocks, serif;
+  color: white;
+  font-size: 25px;
+}
+nav ul {
+  display: flex;
+  justify-content: right;
+  padding: 0;
+}
+nav li {
+  list-style: none;
+  color: white;
+  font-family: Play, serif;
+  font-size: 17px;
+}
+nav > ul > li > a {
+  padding: 0 20px;
+}
+.dropdown-main {
+  position: relative;
+}
+.dropdown-items {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: green;
+  width: max-content;
+  min-width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
+.dropdown-items .dropdown-items {
+  right: 100%;
+  top: 0;
+  background-color: blue;
+}
+.dropdown-main:hover > .dropdown-items {
+  display: flex;
+}
+nav a {
+  width: 100%;
+  display: block;
+  color: white;
+}
+nav a:hover {
+  background-color: orange;
+}
+.dropdown-items a {
+  padding: 5px;
+}
+nav > ul > li:hover > a {
+  background-color: white;
+  color: red;
 }
