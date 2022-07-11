@@ -24,6 +24,9 @@ header .title {
   color: white;
   font-size: 25px;
 }
+nav {
+  z-index: 1;
+}
 nav ul {
   display: flex;
   justify-content: right;
@@ -73,4 +76,38 @@ nav a:hover {
 nav > ul > li:hover > a {
   background-color: white;
   color: red;
+}
+main {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+}
+main > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+article {
+  height: 30vw;
+  width: 30vw;
+  border: 2px solid #000;
+  box-sizing: border-box;
+  margin: 1vw 0;
+  position: relative;
+  border-radius: 5px;
+}
+article header{
+  position: absolute;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+article img {
+  height: 100%;
+  width: 100%;
 }
