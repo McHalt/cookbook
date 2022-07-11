@@ -25,6 +25,6 @@ abstract class Base extends \App\Base
 	public abstract function prepareData();
 	
 	final public function prepareCommonData() {
-		$this->data->menuItems = (new MenuItemsList(["parentId" => 0]))->objects;
+		$this->data->menuItems = new MenuItemsList(["parentId" => 0]);
 	}
 }

@@ -10,11 +10,11 @@ class MenuItem extends Base
 	public int $id;
 	public string $name;
 	public int $parentId;
-	public array $children;
+	public MenuItemsList $children;
 	
 	public function __construct(array $inputs = [])
 	{
 		parent::__construct($inputs);
-		$this->children = (new MenuItemsList(["parentId" => $this->id]))->objects ?? [];
+		$this->children = new MenuItemsList(["parentId" => $this->id]);
 	}
 }
