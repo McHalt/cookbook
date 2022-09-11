@@ -57,7 +57,12 @@ class Db extends Base
 		if (!isset(static::$pdo)) {
 			static::connect();
 		}
-		$stmt = static::$pdo->query($query);
+		try {
+			$stmt = static::$pdo->query($query);
+		} catch (\PDOException $e) {
+			trigger_error(print_r($e, 1), E_USER_WARNING);
+			return false;
+		}
 		if($stmt) {
 			return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 		}

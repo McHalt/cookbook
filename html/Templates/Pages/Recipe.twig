@@ -1,0 +1,19 @@
+<div class="recipe">
+    <div class="recipe__img">
+        <img src="/recipe_img.php?recipe_id={{ recipe.id }}" alt="{{ recipe.name }}">
+    </div>
+    <div class="recipe__ingredients">
+        <header class="recipe__ingredients__header">
+            <h2>Składniki</h2>
+        </header>
+        <table>
+        {% for ingredient in recipe.ingredients %}
+            <tr class="recipe__ingredients__ingredient">
+                <td class="recipe__ingredients__ingredient__name">{{ ingredient.name }}</td>
+                <td class="recipe__ingredients__ingredient__amount">{{ ingredient.amount }} {{ ingredient.unit }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="recipe__content">{{ recipe.content|nl2br }}</div>
+</div>

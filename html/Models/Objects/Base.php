@@ -24,7 +24,7 @@ abstract class Base extends \Models\Base
 			return;
 		}
 		$this->{$this->loadVia} = $inputs[$this->loadVia];
-		$result = Db::query("SELECT * FROM $this->table WHERE $this->loadVia = '" . $inputs[$this->loadVia] . "'");
+		$result = Db::query($this->getLoadQry());
 		if (count($result) > 1) {
 			trigger_error(
 				"I don't know which object (" . Tool::getBasename(get_called_class()) . ") to load,
@@ -51,6 +51,10 @@ abstract class Base extends \Models\Base
 			);
 			$this->$key = $value;
 		}
+	}
+	
+	public function getLoadQry(){
+		return "SELECT * FROM $this->table WHERE $this->loadVia = '" . $this->{$this->loadVia} . "'";
 	}
 	
 	public function save(array $additionalData = [])

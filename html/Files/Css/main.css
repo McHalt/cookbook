@@ -2,48 +2,60 @@
   font-family: RubikMoonrocks;
   src: url(../Fonts/RubikMoonrocks-Regular.ttf)
 }
+
 @font-face {
   font-family: Play;
   src: url(../Fonts/Play-Regular.ttf)
 }
+
 body {
+  background-color: #dddddd;
   overflow-x: hidden;
 }
-a,a:hover,a:focus {
+
+a, a:hover, a:focus {
   text-decoration: none;
   color: inherit;
 }
+
 header.row {
   background-color: red;
   height: 50px;
   line-height: 50px;
 }
+
 header .title {
   text-align: center;
   font-family: RubikMoonrocks, serif;
   color: white;
   font-size: 25px;
 }
+
 nav {
   z-index: 1;
 }
+
 nav ul {
   display: flex;
   justify-content: right;
   padding: 0;
 }
+
 nav li {
   list-style: none;
   color: white;
   font-family: Play, serif;
   font-size: 17px;
 }
+
 nav > ul > li > a {
   padding: 0 20px;
 }
+
 .dropdown-main {
   position: relative;
 }
+
 .dropdown-items {
   display: none;
   position: absolute;
@@ -54,60 +66,114 @@ nav > ul > li > a {
   text-align: center;
   flex-direction: column;
 }
+
 .dropdown-items .dropdown-items {
   right: 100%;
   top: 0;
   background-color: blue;
 }
+
 .dropdown-main:hover > .dropdown-items {
   display: flex;
 }
+
 nav a {
   width: 100%;
   display: block;
   color: white;
 }
+
 nav a:hover {
   background-color: orange;
 }
+
 .dropdown-items a {
   padding: 5px;
 }
+
 nav > ul > li:hover > a {
   background-color: white;
   color: red;
 }
+
 main {
   display: grid;
   grid-template-columns: 33% 34% 33%;
 }
+
 main > div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 article {
   height: 30vw;
   width: 30vw;
-  border: 2px solid #000;
+  border: 2px solid #000000;
   box-sizing: border-box;
   margin: 1vw 0;
   position: relative;
   border-radius: 5px;
 }
-article header{
+
+article header {
   position: absolute;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   min-height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #eee;
+  color: #eeeeee;
   font-weight: bold;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #000000;
 }
+
 article img {
   height: 100%;
   width: 100%;
+}
+
+.recipe {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.recipe__img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.recipe__img img {
+  width: 60%;
+}
+.recipe__ingredients {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.recipe__ingredients h2 {
+  font-family: RubikMoonrocks, serif;
+  font-size: 20px;
+}
+.recipe__ingredients__ingredient:not(:last-child) {
+  border-bottom: 2px solid #000;
+}
+
+.recipe__ingredients__ingredient__name {
+  border-right: 2px solid #000;
+  padding: 2px 10px;
+}
+.recipe__ingredients__ingredient__amount {
+  padding: 2px 10px;
+}
+.recipe__ingredients__header {
+  padding: 10px 0;
+}
+.recipe__content {
+  padding: 20px;
+  text-align: justify;
+  grid-column: 1/3;
 }
