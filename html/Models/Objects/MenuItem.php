@@ -10,6 +10,7 @@ class MenuItem extends Base
 	public int $id;
 	public string $name;
 	public int $parentId;
+	public string $url;
 	public MenuItemsList $children;
 	
 	public function __construct(array $inputs = [])

@@ -15,6 +15,7 @@ class Ingredient extends Base
 		'kg' => [1000, 'g'],
 		'dag' => [10, 'g']
 	];
+	public array $properties2Save = ['id', 'name'];
 	
 	public function save(array $additionalData = [])
 	{
@@ -26,5 +27,18 @@ class Ingredient extends Base
 			$this->unit = $this->units2MultiplierNBaseUnit[$this->unit][1];
 		}
 		parent::save($additionalData);
+	}
+	
+	public function save2Recipe($recipeId)
+	{
+		$orgTable = $this->table;
+		$orgProperties2Save = $this->properties2Save;
+		$this->table = 'recipes_to_ingredients';
+		$this->properties2Save = ['ingredient_id', 'unit', 'amount', 'recipe_id'];
+		$this->recipe_id = $recipeId;
+		$this->ingredient_id = $this->id;
+		$this->save(['forceInsert' => true, 'onDuplicateUpdate' => true]);
+		$this->table = $orgTable;
+		$this->properties2Save = $orgProperties2Save;
 	}
 }

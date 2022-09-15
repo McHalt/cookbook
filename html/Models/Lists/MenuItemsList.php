@@ -4,7 +4,7 @@ namespace Models\Lists;
 
 class MenuItemsList extends Base
 {
-	public string $elementsClass = "MenuItem";
+	public string $elementsClass = "\\Models\\Objects\\MenuItem";
 	public string $table = "menu_items";
 	
 	public function __construct(array $inputs = [])

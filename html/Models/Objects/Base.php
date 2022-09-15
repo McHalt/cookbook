@@ -63,15 +63,29 @@ abstract class Base extends \Models\Base
 		if (empty($this->id)) {
 			$this->loadVia = 'id';
 		}
-		if (empty($this->{$this->loadVia})) {
+		if (
+			empty($this->{$this->loadVia}) 
+			|| ($additionalData['forceInsert'] ?? false)
+		) {
 			$keys = array_diff($this->properties2Save, [$this->loadVia]);
 			foreach ($keys as $key) {
-				$values[] = $this->$key;
+				$values[$key] = $this->$key;
+			}
+			$qryAddon = '';
+			if ($additionalData['onDuplicateUpdate'] ?? false) {
+				$qryAddon = "
+					ON DUPLICATE KEY UPDATE
+				";
+				foreach ($values as $key => $value) {
+					$qryAddon .= "
+					`$key` = '$value',";
+				}
+				$qryAddon = substr($qryAddon, 0, -1);
 			}
 			$qry = "
 				INSERT INTO $this->table
 				(`" . implode("`,`", $keys) . "`)
-				VALUES ('" . implode("','", $values) . "');
+				VALUES ('" . implode("','", $values) . "') $qryAddon;
 			";
 		} else {
 			foreach ($this->properties2Save as $property) {

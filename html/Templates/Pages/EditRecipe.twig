@@ -1,0 +1,59 @@
+<form method="POST" action="" enctype="multipart/form-data">
+    <input type="hidden" name="save" value="1">
+    <section class="edit-recipe__features edit-recipe__mainFeatures">
+        <header><h2>Główne</h2></header>
+        <div>
+            <label for="name">Nazwa</label>
+            <input type="text" id="name" name="name" autocomplete="off" value="{{ recipe.name }}">
+        </div>
+        <div>
+            <label for="image">Zdjęcie</label>
+            <input type="file" id="image" name="image">
+        </div>
+    </section>
+    <section class="edit-recipe__features edit-recipe__ingredients">
+        <header><h2>Składniki<button id="add_new_ingredient"><img src="/Files/Imgs/add_box.png" alt="Dodaj"></button></h2></header>
+        {% set counter = 0 %}
+        {% for ingredient in recipe.ingredients %}
+            <div class="edit-recipe__ingredients__ingredient">
+                <div>
+                    <label for="ingredient[{{ counter }}][name]">Nazwa</label>
+                    <input 
+                        type="text" 
+                        name="ingredients[{{ counter }}][name]" 
+                        id="ingredient[{{ counter }}][name]" 
+                        autocomplete="off"
+                        value="{{ ingredient.name }}"
+                    >
+                </div>
+                <div>
+                    <label for="ingredient[{{ counter }}][amount]">Ilość</label>
+                    <input 
+                        type="text" 
+                        name="ingredients[{{ counter }}][amount]" 
+                        id="ingredient[{{ counter }}][amount]" 
+                        autocomplete="off"
+                        value="{{ ingredient.amount }}"
+                    >
+                </div>
+                <div>
+                    <label for="ingredient[{{ counter }}][unit]">Jednostka</label>
+                    <input 
+                        type="text" 
+                        name="ingredients[{{ counter }}][unit]" 
+                        id="ingredient[{{ counter }}][unit]" 
+                        autocomplete="off"
+                        value="{{ ingredient.unit }}"
+                    >
+                </div>
+            </div>
+            {% set counter = counter + 1 %}
+        {% endfor %}
+    </section>
+    <section class="edit-recipe__features edit-recipe__content">
+        <header><h2><label for="content">Sposób przygotowania</label></h2></header>
+        <textarea name="content" id="content">{{ recipe.content }}</textarea>
+    </section>
+    <button>Zapisz</button>
+</form>
+<script src="/Files/Js/edit_recipe.js"></script>
