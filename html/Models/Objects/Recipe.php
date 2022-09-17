@@ -38,8 +38,8 @@ class Recipe extends Base
 	{
 		parent::save($additionalData);
 		$qry = "INSERT INTO recipes_contents (recipe_id, content) 
-				VALUES (" . $this->id . ", '" . $this->content . "')
-				ON DUPLICATE KEY UPDATE content = '" . $this->content . "'
+				VALUES (" . $this->id . ", '" . htmlspecialchars($this->content) . "')
+				ON DUPLICATE KEY UPDATE content = '" . htmlspecialchars($this->content) . "'
 				";
 		Db::exec($qry);
 	}

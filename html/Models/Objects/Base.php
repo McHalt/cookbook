@@ -69,7 +69,7 @@ abstract class Base extends \Models\Base
 		) {
 			$keys = array_diff($this->properties2Save, [$this->loadVia]);
 			foreach ($keys as $key) {
-				$values[$key] = $this->$key;
+				$values[$key] = htmlspecialchars($this->$key);
 			}
 			$qryAddon = '';
 			if ($additionalData['onDuplicateUpdate'] ?? false) {
@@ -92,7 +92,7 @@ abstract class Base extends \Models\Base
 				if ($this->loadVia == $property) {
 					continue;
 				}
-				$values[] = "`$property`='" . $this->$property . "'";
+				$values[] = "`$property`='" . htmlspecialchars($this->$property) . "'";
 			}
 			$qry = "
 				UPDATE $this->table
