@@ -220,3 +220,15 @@ article img {
 .edit-recipe__categories__category select:not(:first-child) {
   margin-left: 10px;
 }
+.search-bar {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: white;
+}
+.search-bar:focus-visible {
+  outline: none;
+}
+.search-bar:focus-visible::placeholder {
+  color: transparent;
+}

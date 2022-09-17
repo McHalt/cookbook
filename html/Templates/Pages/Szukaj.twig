@@ -1,0 +1,12 @@
+<main>
+    {% for recipe in recipes %}
+        <div>
+            <article>
+                <a href="?p=Recipe&id={{ recipe.id }}">
+                    <header>{{ recipe.name }}</header>
+                    <img src="/recipe_img.php?recipe_id={{ recipe.id }}" alt="Tytuł przepisu">
+                </a>
+            </article>
+        </div>
+    {% endfor %}
+</main>
