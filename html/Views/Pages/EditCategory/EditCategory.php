@@ -1,19 +1,19 @@
 <?php
 
-namespace Views\Pages\EditRecipe;
+namespace Views\Pages\EditCategory;
 
 use Models\Data;
 
-class EditRecipe extends \Views\Pages\Base
+class EditCategory extends \Views\Pages\Base
 {
 	public string $title = "Cookbook :: ";
 	
 	public function render(Data $data)
 	{
 		if (!empty($data->recipe)) {
-			$this->title .= 'Edytuj przepis';
+			$this->title .= 'Edytuj kategorię';
 		} else {
-			$this->title .= "Dodaj przepis";
+			$this->title .= "Dodaj kategorię";
 		}
 		parent::render($data);
 	}

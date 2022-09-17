@@ -1,0 +1,18 @@
+<form method="POST" action="">
+    <input type="hidden" name="save" value="1">
+    <label for="name">Nazwa kategorii</label>
+    <input type="text" value="{{ category.name }}" id="name" name="name">
+    <label for="parent_id">Rodzic</label>
+    <select name="parent_id" id="parent_id">
+        <option value="0">Brak rodzica (kategoria główna)</option>
+        {% for cat in mainCategories %}
+            <option
+                value="{{ cat.id }}"
+                {% if cat.id == category.parentId %}
+                    selected
+                {% endif %}
+            >{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <button>Zapisz</button>
+</form>

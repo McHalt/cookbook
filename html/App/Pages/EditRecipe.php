@@ -2,6 +2,7 @@
 
 namespace App\Pages;
 
+use Models\Db;
 use Models\Lists\IngredientsList;
 use Models\Objects\Recipe;
 use Models\Objects\Ingredient;
@@ -19,6 +20,7 @@ class EditRecipe extends Base
 		$recipe->name = $_POST['name'] ?? '';
 		$recipe->content = $_POST['content'] ?? '';
 		$recipe->save();
+		$recipe->saveCategories($_POST['categories']);
 		if (!empty($_FILES['image']['name'])) {
 			$recipe->saveImg($_FILES['image']);
 		}
@@ -63,6 +65,19 @@ class EditRecipe extends Base
 		if (!empty($_GET['id'])) {
 			$this->data->recipe = new Recipe(['id' => $_GET['id']]);
 		}
-		$this->data->possiblyIngredients = new IngredientsList();
+		$categories = [];
+		foreach (Db::query('SELECT * FROM categories') as $cat) {
+			if ($cat['parent_id'] == 0) {
+				$categories[$cat['id']] = $cat;
+			} else {
+				if (isset($categories[$cat['parent_id']]['children'])) {
+					$categories[$cat['parent_id']]['children'][] = $cat;
+				} else {
+					$categories[$cat['parent_id']]['children'] = [$cat];
+				}
+			}
+		}
+		$this->data->possibleCategories = $categories;
+		$this->data->categoriesJson = json_encode($categories);
 	}
 }

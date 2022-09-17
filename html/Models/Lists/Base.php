@@ -23,7 +23,7 @@ abstract class Base extends \Models\Base
 		if (($inputs['empty'] ?? 0) == 1) {
 			return;
 		}
-		foreach (Db::query("SELECT * FROM $this->table $this->additionalSql") as $item) {
+		foreach (Db::query($this->getLoadQry()) as $item) {
 			if (empty($item[$this->columnToLoadObj])) {
 				continue;
 			}
@@ -41,5 +41,10 @@ abstract class Base extends \Models\Base
 		if ($element instanceof $this->elementsClass) {
 			$this->objects[] = $element;
 		}
+	}
+	
+	public function getLoadQry()
+	{
+		return "SELECT * FROM $this->table $this->additionalSql";
 	}
 }

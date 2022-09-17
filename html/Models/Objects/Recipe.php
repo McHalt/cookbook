@@ -3,6 +3,7 @@
 namespace Models\Objects;
 
 use Models\Db;
+use Models\Lists\CategoriesList;
 use Models\Lists\IngredientsList;
 
 class Recipe extends Base
@@ -12,6 +13,7 @@ class Recipe extends Base
 	public ?string $content;
 	public string $table = "recipes";
 	public IngredientsList $ingredients;
+	public CategoriesList $categories;
 	public array $properties2Save = ['id', 'name'];
 	
 	public function __construct(array $inputs = [])
@@ -20,6 +22,7 @@ class Recipe extends Base
 		$this->ingredients = new IngredientsList(['additionalSql' => "
 			i INNER JOIN recipes_to_ingredients rti ON i.id = rti.ingredient_id AND rti.recipe_id = " . ($this->id ?? -1)
 		]);
+		$this->categories = new CategoriesList(['load4Recipe' => $this->id]); 
 	}
 	
 	public function getLoadQry()
@@ -48,5 +51,24 @@ class Recipe extends Base
 			$postFile['tmp_name'], 
 			$_SERVER['DOCUMENT_ROOT'] . '/Files/Imgs/recipes/' . $this->id . '.' . $imageFileType
 		);
+	}
+	
+	public function saveCategories($categories)
+	{
+		Db::exec("DELETE FROM recipes_to_categories WHERE recipe_id = " . $this->id);
+		$qry = "INSERT INTO recipes_to_categories (recipe_id, category_id) VALUES ";
+		$values = [];
+		foreach ($categories as $category) {
+			if (isset($category[1]) && $category[1] > 0) {
+				$catId = $category[1];
+			} elseif (isset($category[0]) && $category[0] > 0) {
+				$catId = $category[0];
+			} else {
+				continue;
+			}
+			$values[] = "(" . $this->id . ", $catId)";
+		} 
+		$qry .= implode(',', $values);
+		Db::exec($qry);
 	}
 }

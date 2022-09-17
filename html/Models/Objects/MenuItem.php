@@ -15,6 +15,9 @@ class MenuItem extends Base
 	
 	public function __construct(array $inputs = [])
 	{
+		if ($inputs['empty'] ?? false) {
+			return;
+		}
 		parent::__construct($inputs);
 		$this->children = new MenuItemsList(["parentId" => $this->id]);
 	}

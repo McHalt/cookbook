@@ -60,7 +60,7 @@ nav > ul > li > a {
   display: none;
   position: absolute;
   right: 0;
-  background-color: green;
+  background-color: red;
   width: max-content;
   min-width: 100%;
   text-align: center;
@@ -70,7 +70,6 @@ nav > ul > li > a {
 .dropdown-items .dropdown-items {
   right: 100%;
   top: 0;
-  background-color: blue;
 }
 
 .dropdown-main:hover > .dropdown-items {
@@ -84,7 +83,8 @@ nav a {
 }
 
 nav a:hover {
-  background-color: orange;
+  background-color: white;
+  color: red;
 }
 
 .dropdown-items a {
@@ -193,12 +193,12 @@ article img {
   align-items: center;
   text-align: center;
 }
-#add_new_ingredient {
+#add_new_ingredient, #add_category {
   border: none;
   background-color: unset;
   padding: 0;
 }
-#add_new_ingredient img {
+#add_new_ingredient img, #add_category img {
   margin-top: -10px;
   width: 36px;
 }
@@ -213,4 +213,10 @@ article img {
 .edit-recipe__content textarea {
   margin: 3px;
   grid-column: 1/3;
+}
+.edit-recipe__categories__category:not(:first-child) {
+  margin-top: 10px;
+}
+.edit-recipe__categories__category select:not(:first-child) {
+  margin-left: 10px;
 }

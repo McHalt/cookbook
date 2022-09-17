@@ -11,6 +11,57 @@
             <input type="file" id="image" name="image">
         </div>
     </section>
+    <section class="edit-recipe__features edit-recipe__categories">
+        <header><h2>Kategorie<button id="add_category"><img src="/Files/Imgs/add_box.png" alt="Dodaj"></button></h2></header>
+        {% set counter = 0 %}
+        {% for category in recipe.categories %}
+            {% set renderSubCatSelect = 0 %}
+            <div class="edit-recipe__categories__category">
+                <select name="categories[{{ counter }}][0]" id="categories[{{ counter }}][0]">
+                    <option value="-1">Wybierz kategorię</option>
+                    {% for possibleCat in possibleCategories %}
+                        <option
+                            value="{{ possibleCat.id }}"
+                            {% if possibleCat.id == category.id %}
+                                selected
+                                {% if possibleCat.children %}
+                                    {% set renderSubCatSelect = 1 %}
+                                {% endif %}
+                            {% endif %}
+                        >{{ possibleCat.name }}</option>
+                    {% endfor %}
+                </select>
+                {% if renderSubCatSelect %}
+                    <select name="categories[{{ counter }}][1]" id="categories[{{ counter }}][1]">
+                        <option value="-1">Wybierz kategorię</option>
+                        {% for possibleCat in possibleCategories %}
+                            {% if possibleCat.id == category.id %}
+                                {% for possibleChildCat in possibleCat.children %}
+                                    {% for childCat in category.children %}
+                                        <option
+                                            value="{{ possibleChildCat.id }}" 
+                                            {% if possibleChildCat.id == childCat.id %}
+                                                selected
+                                            {% endif %}
+                                        >{{ possibleChildCat.name }}</option>
+                                    {% endfor %}
+                                    {% if not category.children and renderSubCatSelect == category.id %}
+                                        <option
+                                                value="{{ possibleChildCat.id }}"
+                                                {% if possibleChildCat.id == childCat.id %}
+                                                    selected
+                                                {% endif %}
+                                        >{{ possibleChildCat.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            </div>
+            {% set counter = counter + 1 %}
+        {% endfor %}
+    </section>
     <section class="edit-recipe__features edit-recipe__ingredients">
         <header><h2>Składniki<button id="add_new_ingredient"><img src="/Files/Imgs/add_box.png" alt="Dodaj"></button></h2></header>
         {% set counter = 0 %}
@@ -56,4 +107,5 @@
     </section>
     <button>Zapisz</button>
 </form>
+<script>let categories = JSON.parse('{{ categoriesJson|raw }}')</script>
 <script src="/Files/Js/edit_recipe.js"></script>
