@@ -139,7 +139,9 @@ article img {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-
+.recipe__name {
+  display: none;
+}
 .recipe__img {
   display: flex;
   justify-content: center;
