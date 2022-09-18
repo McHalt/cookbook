@@ -20,14 +20,16 @@ class EditRecipe extends Base
 		$recipe->name = $_POST['name'] ?? '';
 		$recipe->content = $_POST['content'] ?? '';
 		$recipe->save();
-		$recipe->saveCategories($_POST['categories']);
+		if (!empty($_POST['categories'])) {
+			$recipe->saveCategories($_POST['categories']);
+		}
 		if (!empty($_FILES['image']['name'])) {
 			$recipe->saveImg($_FILES['image']);
 		}
 		foreach ($this->getMergedIngredients($_POST['ingredients']) as $name => $ingredient) {
 			$ingredientObj = new Ingredient([
 				'loadVia' => 'name',
-				'name' => $name
+				'name' => strtolower($name)
 			]);
 			$ingredientObj->unit = $ingredient['unit'];
 			$ingredientObj->amount = $ingredient['amount'];
@@ -36,6 +38,7 @@ class EditRecipe extends Base
 			}
 			$ingredientObj->save2Recipe($recipe->id);
 		}
+		header('Location: ?p=Recipe&id=' . $recipe->id);
 	}
 	
 	public function getMergedIngredients(array $ingredients)

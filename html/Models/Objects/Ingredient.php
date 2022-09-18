@@ -10,7 +10,7 @@ class Ingredient extends Base
 	public int $amount;
 	public string $unit;
 	public array $baseUnits = ['ml', 'g', 'szt'];
-	private array $units2MultiplierNBaseUnit = [
+	public array $units2MultiplierNBaseUnit = [
 		'L' => [1000, 'ml'],
 		'kg' => [1000, 'g'],
 		'dag' => [10, 'g']

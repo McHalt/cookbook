@@ -22,7 +22,9 @@ class Recipe extends Base
 		$this->ingredients = new IngredientsList(['additionalSql' => "
 			i INNER JOIN recipes_to_ingredients rti ON i.id = rti.ingredient_id AND rti.recipe_id = " . ($this->id ?? -1)
 		]);
-		$this->categories = new CategoriesList(['load4Recipe' => $this->id]); 
+		if (!empty($this->id)) {
+			$this->categories = new CategoriesList(['load4Recipe' => $this->id]);
+		}
 	}
 	
 	public function getLoadQry()
@@ -42,6 +44,15 @@ class Recipe extends Base
 				ON DUPLICATE KEY UPDATE content = '" . htmlspecialchars($this->content) . "'
 				";
 		Db::exec($qry);
+	}
+	
+	public function saveImgFromUrl($url)
+	{
+		$imageFileType = strtolower(pathinfo($url,PATHINFO_EXTENSION));
+		file_put_contents(
+			$_SERVER['DOCUMENT_ROOT'] . '/Files/Imgs/recipes/' . $this->id . '.' . $imageFileType,
+			file_get_contents($url)
+		);
 	}
 	
 	public function saveImg($postFile)

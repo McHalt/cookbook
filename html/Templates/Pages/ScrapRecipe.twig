@@ -1,0 +1,12 @@
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+<form action="" method="POST">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="url">Adres strony z przepisem</label>
+    </div>
+    <input type="text" class="form-control" id="url" name="url" autocomplete="off">
+  </div>
+  <button class="btn btn-light">Dodaj</button>
+</form>
