@@ -11,7 +11,7 @@
         {% for ingredient in recipe.ingredients %}
             <tr class="recipe__ingredients__ingredient">
                 <td class="recipe__ingredients__ingredient__name">{{ ingredient.name }}</td>
-                <td class="recipe__ingredients__ingredient__amount">{{ ingredient.amount }} {{ ingredient.unit }}</td>
+                <td class="recipe__ingredients__ingredient__amount">{{ ingredient.amount }} {{ ingredient.unitForView }}</td>
             </tr>
         {% endfor %}
         </table>

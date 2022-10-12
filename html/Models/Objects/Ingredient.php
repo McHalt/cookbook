@@ -7,15 +7,20 @@ class Ingredient extends Base
 	public string $table = "ingredients";
 	public int $id;
 	public string $name;
-	public int $amount;
+	public float $amount;
 	public string $unit;
-	public array $baseUnits = ['ml', 'g', 'szt'];
+	public array $baseUnits = ['ml', 'g', 'szt', 'łyżka', 'łyżeczka'];
 	public array $units2MultiplierNBaseUnit = [
 		'L' => [1000, 'ml'],
 		'kg' => [1000, 'g'],
-		'dag' => [10, 'g']
+		'dag' => [10, 'g'],
+		'łyżki' => [1, 'łyżka'],
+		'łyżek' => [1, 'łyżka'],
+		'łyżeczki' => [1, 'łyżka'],
+		'łyżeczek' => [1, 'łyżka']
 	];
 	public array $properties2Save = ['id', 'name'];
+	public string $unitForView;
 	
 	public function save(array $additionalData = [])
 	{
@@ -40,5 +45,20 @@ class Ingredient extends Base
 		$this->save(['forceInsert' => true, 'onDuplicateUpdate' => true]);
 		$this->table = $orgTable;
 		$this->properties2Save = $orgProperties2Save;
+	}
+	
+	public function setUnitForView()
+	{
+		if (!in_array($this->unit, ['łyżka', 'łyżeczka']) || $this->amount == 1) {
+			$this->unitForView = $this->unit;
+			return;
+		}
+		
+		if ($this->amount < 5 || $this->amount != intval($this->amount)) {
+			$this->unitForView = str_replace('ka', 'ki', $this->unit);
+			return;
+		}
+		
+		$this->unitForView = str_replace('ka', 'ek', $this->unit);
 	}
 }

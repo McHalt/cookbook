@@ -22,6 +22,7 @@ class Recipe extends Base
 		$this->ingredients = new IngredientsList(['additionalSql' => "
 			i INNER JOIN recipes_to_ingredients rti ON i.id = rti.ingredient_id AND rti.recipe_id = " . ($this->id ?? -1)
 		]);
+		$this->ingredients->setUnitForView();
 		if (!empty($this->id)) {
 			$this->categories = new CategoriesList(['load4Recipe' => $this->id]);
 		}
