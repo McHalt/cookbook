@@ -2,6 +2,8 @@
 
 namespace Models\Objects;
 
+use Models\Db;
+
 class Ingredient extends Base
 {
 	public string $table = "ingredients";
@@ -9,18 +11,33 @@ class Ingredient extends Base
 	public string $name;
 	public float $amount;
 	public string $unit;
-	public array $baseUnits = ['ml', 'g', 'szt', 'łyżka', 'łyżeczka'];
-	public array $units2MultiplierNBaseUnit = [
-		'L' => [1000, 'ml'],
-		'kg' => [1000, 'g'],
-		'dag' => [10, 'g'],
-		'łyżki' => [1, 'łyżka'],
-		'łyżek' => [1, 'łyżka'],
-		'łyżeczki' => [1, 'łyżka'],
-		'łyżeczek' => [1, 'łyżka']
-	];
+	public array $baseUnits = [];
+	public array $units2MultiplierNBaseUnit = [];
 	public array $properties2Save = ['id', 'name'];
 	public string $unitForView;
+	
+	public function __construct(array $inputs = [])
+	{
+		parent::__construct($inputs);
+		$qry = "
+			SELECT *
+			FROM ingredients_base_units
+		";
+		foreach (Db::query($qry) as $row) {
+			$this->baseUnits[$row['id']] = $row['name'];
+		}
+		
+		$qry = "
+			SELECT *
+			FROM ingredients_units_2_base_units
+		";
+		foreach (Db::query($qry) as $row) {
+			$this->units2MultiplierNBaseUnit[$row['name']] = [
+				$row['multiplier'], 
+				$this->baseUnits[$row['base_unit_id']]
+			];
+		}
+	}
 	
 	public function save(array $additionalData = [])
 	{
