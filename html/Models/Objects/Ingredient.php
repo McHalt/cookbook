@@ -66,7 +66,7 @@ class Ingredient extends Base
 	
 	public function setUnitForView()
 	{
-		if (!in_array($this->unit, ['łyżka', 'łyżeczka']) || $this->amount == 1) {
+		if (!in_array($this->unit, ['łyżka', 'łyżeczka', 'szklanka']) || $this->amount == 1) {
 			$this->unitForView = $this->unit;
 			return;
 		}
