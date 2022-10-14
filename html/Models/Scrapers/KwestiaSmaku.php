@@ -84,10 +84,10 @@ class KwestiaSmaku extends Base
 				$elements = explode(' ', trim($node2->textContent));
 				if (is_numeric($elements[0])) {
 					$amount = $elements[0];
-				} elseif(preg_match('/[\d]+\/[\d]+/', $elements[0])) {
+				} elseif (preg_match('/[\d]+\/[\d]+/', $elements[0])) {
 					$amount = explode('/', $elements[0]);
 					$amount = $amount[0] / $amount[1];
-				} elseif(preg_match('/[\d]+,[\d]+/', $elements[0])) {
+				} elseif (preg_match('/[\d]+,[\d]+/', $elements[0])) {
 					$amount = str_replace(',', '.', $elements[0]);
 				} else {
 					$ingredients[] = [
