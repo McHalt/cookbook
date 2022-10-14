@@ -82,7 +82,14 @@ class KwestiaSmaku extends Base
 					continue;
 				}
 				$elements = explode(' ', trim($node2->textContent));
-				if (!is_numeric($elements[0])) {
+				if (is_numeric($elements[0])) {
+					$amount = $elements[0];
+				} elseif(preg_match('/[\d]+\/[\d]+/', $elements[0])) {
+					$amount = explode('/', $elements[0]);
+					$amount = $amount[0] / $amount[1];
+				} elseif(preg_match('/[\d]+,[\d]+/', $elements[0])) {
+					$amount = str_replace(',', '.', $elements[0]);
+				} else {
 					$ingredients[] = [
 						'name' => implode(' ', $elements),
 						'amount' => 1,
@@ -90,7 +97,6 @@ class KwestiaSmaku extends Base
 					];
 					continue;
 				}
-				$amount = $elements[0];
 				unset($elements[0]);
 				if (
 					in_array($elements[1], $ingredient->baseUnits)
