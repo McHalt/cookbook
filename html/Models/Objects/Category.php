@@ -27,6 +27,8 @@ class Category extends Base
 				 )
 				 $additionalSql
 			 ";
+		} else {
+			$additionalSql = "r";
 		}
 		
 		$this->recipes = new RecipesList(['additionalSql' => $additionalSql]);
