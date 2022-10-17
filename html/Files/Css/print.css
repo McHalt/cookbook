@@ -37,6 +37,9 @@ body {
   text-align: center;
   padding: 2px 10px;
 }
+.recipe__ingredients__ingredient__amount {
+  min-width: 70px;
+}
 .recipe__ingredients__ingredient__name {
   border-right: 1px solid #000;
 }
